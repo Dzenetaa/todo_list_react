@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import AddTodo from "./Components/AddTodo";
+import Header from "./Components/Layout/Header";
+import Todos from "./Components/Todos";
+import * as uuid from "uuid";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    todos: [],
+  };
+
+  markComplete = (id) => {
+    this.setState({
+      todos: this.state.todos.map((todo) => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      }),
+    });
+  };
+
+  deleteItem = (id) => {
+    this.setState({
+      todos: [...this.state.todos.filter((todo) => todo.id !== id)],
+    });
+  };
+
+  addTodo = (title) => {
+    const newTodo = {
+      id: uuid.v4(),
+      title,
+      completed: false,
+    };
+    this.setState({ todos: [...this.state.todos, newTodo] });
+  };
+
+  render() {
+    return (
+      <div className="container">
+        <AddTodo addTodo={this.addTodo} />
+        <br></br>
+        <br></br>
+        <Header />
+        <br></br>
+        <Todos
+          todos={this.state.todos}
+          markComplete={this.markComplete}
+          deleteItem={this.deleteItem}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
