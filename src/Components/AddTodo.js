@@ -14,13 +14,12 @@ class AddTodo extends Component {
       this.setState({ title: "" });
     } else {
       this.setState({ alertVisible: true });
-      setTimeout(() =>  this.setState({ alertVisible: "" }), 3000);
+      setTimeout(() =>  this.setState({ alertVisible: false }), 3000);
     }
   };
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-    let value = e.target.value;
   };
 
   render() {

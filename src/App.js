@@ -12,7 +12,7 @@ class App extends Component {
 
   markComplete = (id) => {
     this.setState((state) => ({
-      todos: this.state.todos.map((todo) => {
+      todos: state.todos.map((todo) => {
         if (todo.id === id) {
           todo.completed = !todo.completed;
         }

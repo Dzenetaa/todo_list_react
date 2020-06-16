@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Icon, Intent } from "@blueprintjs/core";
-import { IconNames } from "@blueprintjs/icons";
+import { Icon } from "@blueprintjs/core";
 class TodoItem extends Component {
   getStyle = () => {
     return {
