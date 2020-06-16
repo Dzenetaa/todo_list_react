@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./App.scss";
 import AddTodo from "./Components/AddTodo";
 import Header from "./Components/Layout/Header";
 import Todos from "./Components/Todos";
@@ -11,14 +11,14 @@ class App extends Component {
   };
 
   markComplete = (id) => {
-    this.setState({
+    this.setState((state) => ({
       todos: this.state.todos.map((todo) => {
         if (todo.id === id) {
           todo.completed = !todo.completed;
         }
         return todo;
       }),
-    });
+    }));
   };
 
   deleteItem = (id) => {
@@ -40,10 +40,7 @@ class App extends Component {
     return (
       <div className="container">
         <AddTodo addTodo={this.addTodo} />
-        <br></br>
-        <br></br>
         <Header />
-        <br></br>
         <Todos
           todos={this.state.todos}
           markComplete={this.markComplete}

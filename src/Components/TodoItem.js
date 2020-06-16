@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Icon, Intent } from "@blueprintjs/core";
+import { IconNames } from "@blueprintjs/icons";
 class TodoItem extends Component {
   getStyle = () => {
     return {
@@ -16,17 +18,11 @@ class TodoItem extends Component {
         <input
           type="checkbox"
           defaultChecked={completed}
-          onChange={this.props.markComplete.bind(this, id)}
+          onChange={() => this.props.markComplete(id)}
         ></input>
         <label>{title}</label>
-        <button
-          id="deleteButton"
-          onClick={this.props.deleteItem.bind(this, id)}
-        >
-          <span
-            className="bp3-icon bp3-icon-trash"
-            style={{ color: "red" }}
-          ></span>
+        <button id="deleteButton" onClick={() => this.props.deleteItem(id)}>
+          <Icon icon="trash" iconSize={20} intent="danger" />
         </button>
       </div>
     );
