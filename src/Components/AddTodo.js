@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 class AddTodo extends Component {
   state = {
     title: "",
@@ -11,7 +12,7 @@ class AddTodo extends Component {
 
     if (text !== "") {
       this.props.addTodo(this.state.title);
-      this.setState( { title: "" });
+      this.setState({ title: "" });
     } else {
       this.setState({ alertVisible: true });
       setTimeout(() => this.setState({ alertVisible: false }), 3000);
@@ -58,5 +59,7 @@ class AddTodo extends Component {
     );
   }
 }
-
+AddTodo.propTypes = {
+  addTodo: PropTypes.func.isRequired,
+};
 export default AddTodo;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Icon } from "@blueprintjs/core";
+import PropTypes from "prop-types";
 class TodoItem extends Component {
   getStyle = () => {
     return {
@@ -27,5 +28,9 @@ class TodoItem extends Component {
     );
   }
 }
-
+TodoItem.propTypes = {
+  todo: PropTypes.object.isRequired,
+  markComplete: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+};
 export default TodoItem;
