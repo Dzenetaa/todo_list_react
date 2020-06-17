@@ -11,10 +11,10 @@ class AddTodo extends Component {
 
     if (text !== "") {
       this.props.addTodo(this.state.title);
-      this.setState({ title: "" });
+      this.setState( { title: "" });
     } else {
       this.setState({ alertVisible: true });
-      setTimeout(() =>  this.setState({ alertVisible: false }), 3000);
+      setTimeout(() => this.setState({ alertVisible: false }), 3000);
     }
   };
 

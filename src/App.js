@@ -22,9 +22,9 @@ class App extends Component {
   };
 
   deleteItem = (id) => {
-    this.setState({
-      todos: [...this.state.todos.filter((todo) => todo.id !== id)],
-    });
+    this.setState((state) => ({
+      todos: [...state.todos.filter((todo) => todo.id !== id)],
+    }));
   };
 
   addTodo = (title) => {
@@ -33,7 +33,9 @@ class App extends Component {
       title,
       completed: false,
     };
-    this.setState({ todos: [...this.state.todos, newTodo] });
+    this.setState((state) => ({
+      todos: [...state.todos, newTodo],
+    }));
   };
 
   render() {
