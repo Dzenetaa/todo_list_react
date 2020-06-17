@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 class AddTodo extends Component {
   state = {
-    title: "",
+    title: '',
     alertVisible: false,
   };
 
   onSubmit = (e) => {
     e.preventDefault();
-    const text = document.getElementById("newTodo").value;
-
-    if (text !== "") {
+    const text = document.getElementById('newTodo').value;
+    if (text !== '') {
       this.props.addTodo(this.state.title);
-      this.setState({ title: "" });
+      this.setState({ title: '' });
     } else {
       this.setState({ alertVisible: true });
       setTimeout(() => this.setState({ alertVisible: false }), 3000);
@@ -29,14 +29,14 @@ class AddTodo extends Component {
         <p
           id="message"
           style={{
-            display: this.state.alertVisible ? "block" : "none",
+            display: this.state.alertVisible ? 'block' : 'none',
           }}
         >
           Write something!
         </p>
         <form className="addForm bottom" onSubmit={this.onSubmit}>
           <div className="bp3-input-group ">
-            <span className="bp3-icon bp3-icon-edit"></span>
+            <span className="bp3-icon bp3-icon-edit" />
             <input
               type="text"
               name="title"

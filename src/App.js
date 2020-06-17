@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import "./App.scss";
-import AddTodo from "./Components/AddTodo";
-import Header from "./Components/Layout/Header";
-import Todos from "./Components/Todos";
-import * as uuid from "uuid";
+import React, { Component } from 'react';
+import './App.scss';
+import * as uuid from 'uuid';
+import AddTodo from './Components/AddTodo';
+import Header from './Components/Layout/Header';
+import Todos from './Components/Todos';
 
 class App extends Component {
   state = {

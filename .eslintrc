@@ -1,27 +1,35 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "airbnb"
-  ],
+  "extends": ["airbnb"],
   "globals": {
     "document": false,
     "localStorage": true,
     "window": true
   },
   "rules": {
-    "jsx-a11y/anchor-is-valid": ["error", {
-      "components": [ "Link" ],
-      "specialLink": [ "url" ]
-    }],
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["url"]
+      }
+    ],
+    "react/state-in-constructor": [2, "never"],
+    "react/destructuring-assignment": [<enabled>, "never"],
     "jsx-a11y/label-has-associated-control": [2, { "assert": "htmlFor" }],
-    "max-len": ["error", 150, 2, {
-      "ignoreUrls": true,
-      "ignoreComments": true,
-      "ignoreRegExpLiterals": true,
-      "ignoreStrings": true,
-      "ignoreTemplateLiterals": true
-    }],
-    "prefer-destructuring": ["error", {"object": true, "array": false}],
+    "max-len": [
+      "error",
+      150,
+      2,
+      {
+        "ignoreUrls": true,
+        "ignoreComments": true,
+        "ignoreRegExpLiterals": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "prefer-destructuring": ["error", { "object": true, "array": false }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
@@ -33,7 +41,5 @@
       }
     }
   },
-  "plugins": [
-    "react-hooks"
-  ]
+  "plugins": ["react-hooks"]
 }
