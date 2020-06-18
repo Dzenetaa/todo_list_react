@@ -38,7 +38,7 @@ class AddTodo extends Component {
         </p>
         <form className="addForm bottom" onSubmit={this.onSubmit}>
           <div className="bp3-input-group ">
-            <Icon icon="edit" iconSize={1} />
+            <Icon icon="edit" iconSize={15} />
             <input
               type="text"
               name="title"
