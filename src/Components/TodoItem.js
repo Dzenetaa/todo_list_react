@@ -16,12 +16,15 @@ class TodoItem extends Component {
     return (
       <div style={this.getStyle()}>
         <input
+          id="checkboxId"
           type="checkbox"
           defaultChecked={completed}
           onChange={() => this.props.markComplete(id)}
         />
-        <label>{title}</label>
-        <button id="deleteButton" onClick={() => this.props.deleteItem(id)}>
+        <label htmlFor="checkboxId">
+          {title}
+        </label>
+        <button type="submit" id="deleteButton" onClick={() => this.props.deleteItem(id)}>
           <Icon icon="trash" iconSize={20} intent="danger" />
         </button>
       </div>
@@ -29,7 +32,7 @@ class TodoItem extends Component {
   }
 }
 TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired,
+  todo: PropTypes.objectOf(PropTypes.string).isRequired,
   markComplete: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
 };

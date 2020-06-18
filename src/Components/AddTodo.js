@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Icon } from '@blueprintjs/core';
 import PropTypes from 'prop-types';
 
 class AddTodo extends Component {
@@ -36,7 +37,7 @@ class AddTodo extends Component {
         </p>
         <form className="addForm bottom" onSubmit={this.onSubmit}>
           <div className="bp3-input-group ">
-            <span className="bp3-icon bp3-icon-edit" />
+            <Icon icon="edit" iconSize={15} />
             <input
               type="text"
               name="title"

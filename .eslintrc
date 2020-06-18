@@ -15,7 +15,7 @@
       }
     ],
     "react/state-in-constructor": [2, "never"],
-    "react/destructuring-assignment": [<enabled>, "never"],
+    "react/destructuring-assignment": [2, "never"],
     "jsx-a11y/label-has-associated-control": [2, { "assert": "htmlFor" }],
     "max-len": [
       "error",

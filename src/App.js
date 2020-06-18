@@ -14,6 +14,7 @@ class App extends Component {
     this.setState((state) => ({
       todos: state.todos.map((todo) => {
         if (todo.id === id) {
+          // eslint-disable-next-line no-param-reassign
           todo.completed = !todo.completed;
         }
         return todo;
