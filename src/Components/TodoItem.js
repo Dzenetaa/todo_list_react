@@ -32,7 +32,11 @@ class TodoItem extends Component {
   }
 }
 TodoItem.propTypes = {
-  todo: PropTypes.objectOf(PropTypes.string).isRequired,
+  todo: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    completed: PropTypes.bool,
+  }).isRequired,
   markComplete: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
 };

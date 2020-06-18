@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React, { Component } from 'react';
 import { Icon } from '@blueprintjs/core';
 import PropTypes from 'prop-types';
@@ -37,7 +38,7 @@ class AddTodo extends Component {
         </p>
         <form className="addForm bottom" onSubmit={this.onSubmit}>
           <div className="bp3-input-group ">
-            <Icon icon="edit" iconSize={15} />
+            <Icon icon="edit" iconSize={1} />
             <input
               type="text"
               name="title"
@@ -51,7 +52,6 @@ class AddTodo extends Component {
           <button
             id="addButton"
             className="bp3-button bp3-intent-primary  bp3-icon-add bp3-small  "
-            type="submit"
           >
             Add
           </button>
