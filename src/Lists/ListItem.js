@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.scss';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import AddTodo from '../Components/AddTodo';
 import Header from '../Components/Layout/Header';
 import Todos from '../Components/Todos';
@@ -15,8 +15,7 @@ class ListItem extends Component {
         <AddTodo addTodo={(title) => this.props.addTodo(title, lid)} />
         <Header />
         <Todos
-          todos={this.props.todos}
-            // todos={this.props.todos[lid]}
+          todos={this.props.todos[lid]}
           markComplete={(id) => this.props.markComplete(id, lid)}
           deleteItem={(id) => this.props.deleteItem(id, lid)}
         />
@@ -25,7 +24,6 @@ class ListItem extends Component {
   }
 }
 ListItem.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
   markComplete: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
   addTodo: PropTypes.func.isRequired,

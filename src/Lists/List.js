@@ -15,25 +15,38 @@ class List extends Component {
       [],
       [],
     ],
+
   };
 
   markComplete = (id, lid) => {
     this.setState((state) => ({
-      todos: [...state.todos.filter((todo) => todo[lid])],
-      todos: state.todos.map((todo) => {
-        if (todo.id === id) {
-          // eslint-disable-next-line no-param-reassign
-          todo.completed = !todo.completed;
+      todos: state.todos.map((todoList, index) => {
+        if (index === lid) {
+          todoList.map((todo) => {
+            if (todo.id === id) {
+              return { ...todo, completed: !todo.completed };
+            }
+            return todo;
+          });
         }
-        return todo;
+        return todoList;
       }),
     }));
   };
 
   deleteItem = (id, lid) => {
     this.setState((state) => ({
-      todos: [...state.todos.filter((todo) => todo[lid])],
-      todos: [...state.todos.filter((todo) => todo.id !== id)],
+      todos: state.todos.map((todoList, index) => {
+        if (index === lid) {
+          todoList.filter((todo) => {
+            if (todo.id !== id) {
+              return { todo };
+            }
+            return todo;
+          });
+        }
+        return todoList;
+      }),
     }));
   };
 
@@ -44,13 +57,16 @@ class List extends Component {
       completed: false,
     };
     this.setState((state) => ({
-      todos: [...state.todos.filter((todo) => todo[lid])],
-      todos: [...state.todos, newTodo],
+      todos: state.todos.map((todoList, index) => {
+        if (index === lid) {
+          return { todoList: [...todoList, newTodo] };
+        }
+        return todoList;
+      }),
     }));
   };
 
   render() {
-    console.log(this.state.todos);
     return (
       <Router>
         <div className="container">
@@ -72,4 +88,4 @@ class List extends Component {
   }
 }
 
-export default (List);
+export default List;
