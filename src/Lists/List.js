@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable radix */
 import React, { Component } from 'react';
 import '../App.scss';
 import * as uuid from 'uuid';
@@ -10,21 +12,17 @@ import ListItem from './ListItem';
 
 class List extends Component {
   state = {
-    todos: [
-      [],
-      [],
-      [],
-    ],
-
+    todos: [],
+    titles: [],
   };
 
   markComplete = (id, lid) => {
     this.setState((state) => ({
       todos: state.todos.map((todoList, index) => {
-        if (index === lid) {
+        if (index === parseInt(lid)) {
           todoList.map((todo) => {
             if (todo.id === id) {
-              return { ...todo, completed: !todo.completed };
+              todo.completed = !todo.completed;
             }
             return todo;
           });
@@ -37,13 +35,8 @@ class List extends Component {
   deleteItem = (id, lid) => {
     this.setState((state) => ({
       todos: state.todos.map((todoList, index) => {
-        if (index === lid) {
-          todoList.filter((todo) => {
-            if (todo.id !== id) {
-              return { todo };
-            }
-            return todo;
-          });
+        if (index === parseInt(lid)) {
+          return [...todoList.filter((todo) => todo.id !== id)];
         }
         return todoList;
       }),
@@ -58,11 +51,19 @@ class List extends Component {
     };
     this.setState((state) => ({
       todos: state.todos.map((todoList, index) => {
-        if (index === lid) {
-          return { todoList: [...todoList, newTodo] };
+        if (index === parseInt(lid)) {
+          return [...todoList, newTodo];
         }
         return todoList;
       }),
+    }));
+  };
+
+  addList = (title) => {
+    const newList = [];
+    this.setState((state) => ({
+      todos: [...state.todos, newList],
+      titles: [...state.titles, title],
     }));
   };
 
@@ -70,7 +71,17 @@ class List extends Component {
     return (
       <Router>
         <div className="container">
-          <Route exact path="/" component={Home} />
+          <Route
+            exact
+            path="/"
+            render={(props) => (
+              <Home
+                addList={(title) => this.addList(title)}
+                todos={this.state.todos}
+                titles={this.state.titles}
+              />
+            )}
+          />
           <Route
             path="/:id"
             render={(props) => (

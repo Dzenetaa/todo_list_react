@@ -24,8 +24,15 @@ class ListItem extends Component {
   }
 }
 ListItem.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.array).isRequired,
   markComplete: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
   addTodo: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    isExact: PropTypes.bool,
+    params: PropTypes.object,
+    path: PropTypes.string,
+    url: PropTypes.string,
+  }).isRequired,
 };
 export default withRouter(ListItem);
