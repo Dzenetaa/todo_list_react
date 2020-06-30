@@ -2,6 +2,7 @@
 /* eslint-disable radix */
 import React, { Component } from 'react';
 import '../App.scss';
+import { Provider, connect } from 'react-redux';
 import * as uuid from 'uuid';
 import {
   BrowserRouter as Router,
@@ -9,28 +10,19 @@ import {
 } from 'react-router-dom';
 import Home from '../Home';
 import ListItem from './ListItem';
+import store from '../store';
+
+import {
+  markComplete, deleteItem, addTodo, addList,
+} from '../actions/todosActions';
 
 class List extends Component {
-  state = {
-    todos: [],
-    titles: [],
-  };
+  // state = {
+  //   todos: [],
+  //   titles: [],
+  // };  the idea is to also remove all the methods bellow since  I have them in reducer now
 
-  markComplete = (id, lid) => {
-    this.setState((state) => ({
-      todos: state.todos.map((todoList, index) => {
-        if (index === parseInt(lid)) {
-          todoList.map((todo) => {
-            if (todo.id === id) {
-              todo.completed = !todo.completed;
-            }
-            return todo;
-          });
-        }
-        return todoList;
-      }),
-    }));
-  };
+ this.props.markComplete(id, lid);
 
   deleteItem = (id, lid) => {
     this.setState((state) => ({
@@ -69,34 +61,36 @@ class List extends Component {
 
   render() {
     return (
-      <Router>
-        <div className="container">
-          <Route
-            exact
-            path="/"
-            render={(props) => (
-              <Home
-                addList={(title) => this.addList(title)}
-                todos={this.state.todos}
-                titles={this.state.titles}
-              />
-            )}
-          />
-          <Route
-            path="/:id"
-            render={(props) => (
-              <ListItem
-                todos={this.state.todos}
-                markComplete={this.markComplete}
-                deleteItem={this.deleteItem}
-                addTodo={this.addTodo}
-              />
-            )}
-          />
-        </div>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <div className="container">
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Home
+                  addList={(title) => this.props.addList(title)}
+                  todos={this.props.todos}
+                  titles={this.props.titles}
+                />
+              )}
+            />
+            <Route
+              path="/:id"
+              render={(props) => (
+                <ListItem
+                  todos={this.props.todos}
+                  markComplete={this.props.markComplete(id, lid)}
+                  deleteItem={this.props.deleteItem(id, lid)}
+                  addTodo={this.props.addTodo(title, lid)}
+                />
+              )}
+            />
+          </div>
+        </Router>
+      </Provider>
     );
   }
 }
+export default connect(mapStateToProps, { markComplete, deleteItem, addTodo, addList })(List);
 
-export default List;
