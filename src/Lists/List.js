@@ -17,12 +17,6 @@ import {
 } from '../actions/todosActions';
 
 class List extends Component {
-  // state = {
-  //   todos: [],
-  //   titles: [],
-  // };  the idea is to also remove all the methods bellow since  I have them in reducer now
-
- this.props.markComplete(id, lid);
 
   deleteItem = (id, lid) => {
     this.setState((state) => ({
@@ -92,5 +86,12 @@ class List extends Component {
     );
   }
 }
-export default connect(mapStateToProps, { markComplete, deleteItem, addTodo, addList })(List);
 
+const mapStateToProps = (state) => ({
+  todos: state.todos,
+  titles: state.titles,
+});
+
+export default connect(mapStateToProps, {
+  markComplete, deleteItem, addTodo, addList,
+})(List);

@@ -1,6 +1,7 @@
+/* eslint-disable no-param-reassign */
 import {
   MARK_COMPLETE, DELETE_ITEM, ADD_TODO, ADD_LIST,
-} from './types';
+} from '../actions/types';
 
 const initialState = {
   todos: [],
@@ -9,10 +10,9 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case 'MARK_COMPLETE':
-      return 
-      state.todos.map((todoList, index) => {
-        if (index === parseInt(action.lid)) {
+    case MARK_COMPLETE:
+      return state.todos.map((todoList, index) => {
+        if (index === parseInt(action.lid, 10)) {
           todoList.map((todo) => {
             if (todo.id === action.id) {
               todo.completed = !todo.completed;
@@ -21,37 +21,31 @@ export default function (state = initialState, action) {
           });
         }
         return todoList;
-      })
-    
-      case 'DELETE_ITEM':
-        return state.todos.map((todoList, index) => {
-          if (index === parseInt(action.lid)) {
-            return [...todoList.filter((todo) => todo.id !== action.id)];
-          }
-          return todoList;
-        })
+      });
 
-     case 'ADD_TODO':
-        
-      const newTodo = {
-        id: uuid.v4(),
-        title,
-        completed: false,
-      };
+    case DELETE_ITEM:
       return state.todos.map((todoList, index) => {
-        if (index === parseInt(action.lid)) {
-          return [...todoList, newTodo];
+        if (index === parseInt(action.lid, 10)) {
+          return [...todoList.filter((todo) => todo.id !== action.id)];
         }
         return todoList;
-      })
-  
-    case 'ADD_LIST':
-      const newList = [];
-      return 
-        [...state.todos, newList],
-        [...state.titles, title],
-      
-     default:
+      });
+
+    case ADD_TODO:
+      return state.todos.map((todoList, index) => {
+        if (index === parseInt(action.lid, 10)) {
+          return [...todoList, action.newTodo];
+        }
+        return todoList;
+      });
+
+    case ADD_LIST:
+      return {
+        todos: [...state.todos, action.newList],
+        titles: [...state.titles, action.title],
+      };
+
+    default:
       return state;
   }
 }
