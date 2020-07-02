@@ -12,22 +12,14 @@ class ListItem extends Component {
     const lid = this.props.match.params.id;
     return (
       <div className="container">
-        <AddTodo addTodo={(title) => this.props.addTodo(title, lid)} />
+        <AddTodo lid={lid} />
         <Header />
-        <Todos
-          todos={this.props.todos[lid]}
-          markComplete={(id) => this.props.markComplete(id, lid)}
-          deleteItem={(id) => this.props.deleteItem(id, lid)}
-        />
+        <Todos lid={lid} />
       </div>
     );
   }
 }
 ListItem.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.array).isRequired,
-  markComplete: PropTypes.func.isRequired,
-  deleteItem: PropTypes.func.isRequired,
-  addTodo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     isExact: PropTypes.bool,
     params: PropTypes.object,

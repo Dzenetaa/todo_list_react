@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Icon } from '@blueprintjs/core';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { markComplete, deleteItem } from '../actions/todosActions';
 
 class TodoItem extends Component {
   getStyle = () => ({
@@ -12,6 +14,8 @@ class TodoItem extends Component {
 
   render() {
     const { id, title, completed } = this.props.todo;
+    // eslint-disable-next-line react/destructuring-assignment
+    const { lid } = this.props;
 
     return (
       <div style={this.getStyle()}>
@@ -19,19 +23,25 @@ class TodoItem extends Component {
           id="checkboxId"
           type="checkbox"
           defaultChecked={completed}
-          onChange={() => this.props.markComplete(id)}
+          onChange={() => this.props.markComplete(id, lid)}
         />
         <label htmlFor="checkboxId">
           {title}
         </label>
-        <button type="submit" id="deleteButton" onClick={() => this.props.deleteItem(id)}>
+        <button type="submit" id="deleteButton" onClick={() => this.props.deleteItem(id, lid)}>
           <Icon icon="trash" iconSize={20} intent="danger" />
         </button>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  todo: state.todos[this.props.lid],
+});
+
 TodoItem.propTypes = {
+  lid: PropTypes.number.isRequired,
   todo: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
@@ -40,4 +50,5 @@ TodoItem.propTypes = {
   markComplete: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
 };
-export default TodoItem;
+
+export default connect(mapStateToProps, { markComplete, deleteItem })(TodoItem);

@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { Icon } from '@blueprintjs/core';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addList } from './actions/todosActions';
 
 class Home extends Component {
   state = {
@@ -74,10 +76,13 @@ class Home extends Component {
     );
   }
 }
-
+const mapStateToProps = (state) => ({
+  todos: state.todos,
+  titles: state.titles,
+});
 Home.propTypes = {
   addList: PropTypes.func.isRequired,
   todos: PropTypes.arrayOf(PropTypes.array).isRequired,
   titles: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
-export default Home;
+export default connect(mapStateToProps, { addList })(Home);

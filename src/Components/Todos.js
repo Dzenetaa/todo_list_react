@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import TodoItem from './TodoItem';
 
 class Todos extends Component {
@@ -7,16 +8,17 @@ class Todos extends Component {
     return this.props.todos.map((todo) => (
       <TodoItem
         key={todo.id}
-        todo={todo}
-        markComplete={this.props.markComplete}
-        deleteItem={this.props.deleteItem}
+        lid={this.props.lid}
       />
     ));
   }
 }
+const mapStateToProps = (state) => ({
+  todos: state.todos[this.props.lid],
+});
+
 Todos.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-  markComplete: PropTypes.func.isRequired,
-  deleteItem: PropTypes.func.isRequired,
+  lid: PropTypes.number.isRequired,
 };
-export default Todos;
+export default connect(mapStateToProps)(Todos);

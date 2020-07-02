@@ -1,7 +1,9 @@
 /* eslint-disable react/button-has-type */
 import React, { Component } from 'react';
 import { Icon } from '@blueprintjs/core';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { addTodo } from '../actions/todosActions';
 
 class AddTodo extends Component {
   state = {
@@ -12,8 +14,10 @@ class AddTodo extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const text = document.getElementById('newTodo').value;
+    // eslint-disable-next-line react/destructuring-assignment
+    const { lid } = this.props;
     if (text !== '') {
-      this.props.addTodo(this.state.title);
+      this.props.addTodo(this.state.title, lid);
       this.setState({ title: '' });
     } else {
       this.setState({ alertVisible: true });
@@ -61,6 +65,7 @@ class AddTodo extends Component {
   }
 }
 AddTodo.propTypes = {
+  lid: PropTypes.number.isRequired,
   addTodo: PropTypes.func.isRequired,
 };
-export default AddTodo;
+export default connect(null, { addTodo })(AddTodo);
