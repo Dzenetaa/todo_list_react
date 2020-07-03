@@ -14,9 +14,7 @@ class TodoItem extends Component {
   });
 
   render() {
-    // const { todoId } = this.props;
     const { id, title, completed } = this.props.todo;
-
     // eslint-disable-next-line react/destructuring-assignment
     const { lid } = this.props;
 
@@ -39,12 +37,8 @@ class TodoItem extends Component {
   }
 }
 
-// const mapStateToProps = (state, ownProps) => ({
-//   todo: state.todos.todos[ownProps.lid][todoId],
-// });
-
 TodoItem.propTypes = {
-  lid: PropTypes.number.isRequired,
+  lid: PropTypes.string.isRequired,
   todo: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,

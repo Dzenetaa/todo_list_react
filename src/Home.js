@@ -67,7 +67,7 @@ class Home extends Component {
             const ind = index;
             return this.props.titles.map((title, index) => {
               if (ind === index) {
-                return (<h2><Link to={`/${index}`}>{title}</Link></h2>);
+                return (<h2 key={ind}><Link to={`/${index}`}>{title}</Link></h2>);
               }
             });
           })}

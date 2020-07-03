@@ -11,7 +11,6 @@ class Todos extends Component {
       <TodoItem
         key={todo.id}
         lid={lid}
-        // todoId={todo.id}
         todo={todo}
       />
     ));
@@ -19,10 +18,11 @@ class Todos extends Component {
 }
 const mapStateToProps = (state, ownProps) => ({
   todos: state.todos.todos[ownProps.lid],
+
 });
 
 Todos.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-  lid: PropTypes.number.isRequired,
+  lid: PropTypes.string.isRequired,
 };
 export default connect(mapStateToProps)(Todos);

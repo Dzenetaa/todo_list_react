@@ -65,7 +65,7 @@ class AddTodo extends Component {
   }
 }
 AddTodo.propTypes = {
-  lid: PropTypes.number.isRequired,
+  lid: PropTypes.string.isRequired,
   addTodo: PropTypes.func.isRequired,
 };
 export default connect(null, { addTodo })(AddTodo);
