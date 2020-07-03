@@ -11,33 +11,41 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case MARK_COMPLETE:
-      return state.todos.map((todoList, index) => {
-        if (index === parseInt(action.lid, 10)) {
-          todoList.map((todo) => {
-            if (todo.id === action.id) {
-              todo.completed = !todo.completed;
-            }
-            return todo;
-          });
-        }
-        return todoList;
-      });
-
+      return {
+        todos: state.todos.map((todoList, index) => {
+          if (index === parseInt(action.lid, 10)) {
+            todoList.map((todo) => {
+              if (todo.id === action.id) {
+                todo.completed = !todo.completed;
+              }
+              return todo;
+            });
+          }
+          return todoList;
+        }),
+        titles: [...state.titles],
+      };
     case DELETE_ITEM:
-      return state.todos.map((todoList, index) => {
-        if (index === parseInt(action.lid, 10)) {
-          return [...todoList.filter((todo) => todo.id !== action.id)];
-        }
-        return todoList;
-      });
+      return {
+        todos: state.todos.map((todoList, index) => {
+          if (index === parseInt(action.lid, 10)) {
+            return [...todoList.filter((todo) => todo.id !== action.id)];
+          }
+          return todoList;
+        }),
+        titles: [...state.titles],
+      };
 
     case ADD_TODO:
-      return state.todos.map((todoList, index) => {
-        if (index === parseInt(action.lid, 10)) {
-          return [...todoList, action.newTodo];
-        }
-        return todoList;
-      });
+      return {
+        todos: state.todos.map((todoList, index) => {
+          if (index === parseInt(action.lid, 10)) {
+            return [...todoList, action.newTodo];
+          }
+          return todoList;
+        }),
+        titles: [...state.titles],
+      };
 
     case ADD_LIST:
       return {

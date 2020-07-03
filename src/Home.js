@@ -77,8 +77,8 @@ class Home extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  todos: state.todos,
-  titles: state.titles,
+  todos: state.todos.todos,
+  titles: state.todos.titles,
 });
 Home.propTypes = {
   addList: PropTypes.func.isRequired,

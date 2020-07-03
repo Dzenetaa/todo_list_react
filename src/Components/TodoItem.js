@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { Icon } from '@blueprintjs/core';
 import PropTypes from 'prop-types';
@@ -13,7 +14,9 @@ class TodoItem extends Component {
   });
 
   render() {
+    // const { todoId } = this.props;
     const { id, title, completed } = this.props.todo;
+
     // eslint-disable-next-line react/destructuring-assignment
     const { lid } = this.props;
 
@@ -36,9 +39,9 @@ class TodoItem extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  todo: state.todos[this.props.lid],
-});
+// const mapStateToProps = (state, ownProps) => ({
+//   todo: state.todos.todos[ownProps.lid][todoId],
+// });
 
 TodoItem.propTypes = {
   lid: PropTypes.number.isRequired,
@@ -51,4 +54,4 @@ TodoItem.propTypes = {
   deleteItem: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { markComplete, deleteItem })(TodoItem);
+export default connect(null, { markComplete, deleteItem })(TodoItem);
