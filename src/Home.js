@@ -5,13 +5,18 @@ import { Icon } from '@blueprintjs/core';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addList } from './actions/todosActions';
+import { addList, getListTitles, getItems } from './actions/todosActions';
 
 class Home extends Component {
   state = {
     title: '',
     alertVisible: false,
   };
+
+  componentDidMount() {
+    this.props.getListTitles();
+    this.props.getItems();
+  }
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -85,4 +90,4 @@ Home.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.array).isRequired,
   titles: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
-export default connect(mapStateToProps, { addList })(Home);
+export default connect(mapStateToProps, { addList, getListTitles, getItems })(Home);
