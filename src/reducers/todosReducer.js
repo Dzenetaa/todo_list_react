@@ -51,18 +51,19 @@ export default function (state = initialState, action) {
       return {
         ...state,
         todos: [...state.todos],
-        titles: [...state.titles, action.titles],
+        titles: [...state.titles, ...action.titles],
       };
 
     case GET_ITEMS:
       return {
         ...state,
-        todos: [...state.todos, action.todos],
+        todos: [...state.todos, ...action.todos],
         titles: [...state.titles],
       };
 
     case ADD_LIST:
       return {
+        ...state,
         todos: [...state.todos, action.newList],
         titles: [...state.titles, action.title],
       };
