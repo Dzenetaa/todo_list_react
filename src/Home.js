@@ -14,8 +14,8 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    this.props.getListTitles();
     this.props.getItems();
+    this.props.getListTitles();
   }
 
   onSubmit = (e) => {
@@ -69,10 +69,15 @@ class Home extends Component {
         </div>
         <div className="bp3-list-unstyled container">
           {this.props.todos.map((todo, index) => {
-            const ind = index;
+            const ind1 = index;
             return this.props.titles.map((title, index) => {
-              if (ind === index) {
-                return (<h2 key={ind}><Link to={`/${index}`}>{title}</Link></h2>);
+              if (ind1 === index) {
+                const ind2 = index;
+                return this.props.listIds.map((lid, index) => {
+                  if (ind2 === index) {
+                    return (<h2 key={ind1}><Link to={`/${lid}`}>{title}</Link></h2>);
+                  }
+                });
               }
             });
           })}
@@ -84,6 +89,7 @@ class Home extends Component {
 const mapStateToProps = (state) => ({
   todos: state.todos.todos,
   titles: state.todos.titles,
+  listIds: state.todos.listIds,
 });
 Home.propTypes = {
   addList: PropTypes.func.isRequired,

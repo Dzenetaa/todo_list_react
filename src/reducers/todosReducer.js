@@ -6,6 +6,7 @@ import {
 const initialState = {
   todos: [],
   titles: [],
+  listIds: [],
 };
 
 export default function (state = initialState, action) {
@@ -24,6 +25,7 @@ export default function (state = initialState, action) {
           return todoList;
         }),
         titles: [...state.titles],
+        listIds: [...state.listIds],
       };
     case DELETE_ITEM:
       return {
@@ -34,6 +36,7 @@ export default function (state = initialState, action) {
           return todoList;
         }),
         titles: [...state.titles],
+        listIds: [...state.listIds],
       };
 
     case ADD_TODO:
@@ -45,20 +48,21 @@ export default function (state = initialState, action) {
           return todoList;
         }),
         titles: [...state.titles],
+        listIds: [...state.listIds],
       };
 
     case GET_LIST_TITLES:
       return {
-        ...state,
         todos: [...state.todos],
-        titles: [...state.titles, ...action.titles],
+        titles: [...action.titles],
+        listIds: [...action.lid],
       };
 
     case GET_ITEMS:
       return {
-        ...state,
-        todos: [...state.todos, ...action.todos],
+        todos: [...action.todos],
         titles: [...state.titles],
+        listIds: [...state.listIds],
       };
 
     case ADD_LIST:
@@ -66,6 +70,7 @@ export default function (state = initialState, action) {
         ...state,
         todos: [...state.todos, action.newList],
         titles: [...state.titles, action.title],
+        listIds: [...state.listIds],
       };
 
     default:
