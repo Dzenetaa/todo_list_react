@@ -14,7 +14,6 @@ class Todos extends Component {
     const { lid } = this.props;
     const { todos } = this.props;
     const renderTodos = () => {
-      console.log(todos);
       if (typeof todos !== 'undefined' && todos instanceof Array) {
         return todos.map((todo) => (
           <TodoItem
@@ -33,7 +32,7 @@ class Todos extends Component {
   }
 }
 const mapStateToProps = (state, ownProps) => ({
-  todos: state.todos.todos[ownProps.lid],
+  todos: state.todos.todos[ownProps.lid - 1],
 
 });
 

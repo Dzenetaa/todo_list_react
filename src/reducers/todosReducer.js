@@ -69,8 +69,8 @@ export default function (state = initialState, action) {
       return {
         ...state,
         todos: [...state.todos, action.newList],
-        titles: [...state.titles, action.title],
-        listIds: [...state.listIds],
+        titles: [...action.title],
+        listIds: [...action.lid],
       };
 
     default:

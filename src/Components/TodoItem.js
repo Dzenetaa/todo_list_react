@@ -40,7 +40,7 @@ class TodoItem extends Component {
 TodoItem.propTypes = {
   lid: PropTypes.string.isRequired,
   todo: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     title: PropTypes.string,
     completed: PropTypes.bool,
   }).isRequired,

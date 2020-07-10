@@ -8,21 +8,21 @@ import {
 export const markComplete = (id, lid) => ({
   type: MARK_COMPLETE,
   id,
-  lid,
+  lid: lid - 1,
 });
 
 export const deleteItem = (id, lid) => (dispatch) => {
-  axios.delete('http://localhost:3070/items/id').then((res) => dispatch({
+  axios.delete('http://localhost:3076/items/id').then((res) => dispatch({
     type: DELETE_ITEM,
     id,
-    lid,
+    lid: lid - 1,
   }));
 };
 
 export const addTodo = (title, lid) => (dispatch) => {
   axios({
     method: 'post',
-    url: 'http://localhost:3070/items',
+    url: 'http://localhost:3076/items',
     data: qs.stringify({
       name: title,
       listId: lid,
@@ -30,51 +30,52 @@ export const addTodo = (title, lid) => (dispatch) => {
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
     },
-  });
-  axios.get('http://localhost:3070/items')
-    .then((response) => dispatch({
-      type: ADD_TODO,
-      lid,
-      newTodo: {
-        id: response.data.data.map((item) => {
-          if (item.list_id === parseInt(lid, 10)) {
-            return item.id;
-          }
-        }).filter((el) => el !== undefined).pop(),
-        title: response.data.data.map((item) => {
-          if (item.list_id === parseInt(lid, 10)) {
-            return item.name;
-          }
-        }).filter((el) => el !== undefined).pop(),
-        completed: false,
-      },
-    }));
+  })
+    .then(axios.get('http://localhost:3076/items')
+      .then((response) => dispatch({
+        type: ADD_TODO,
+        lid: lid - 1,
+        newTodo: {
+          id: response.data.data.map((item) => {
+            if (item.list_id === parseInt(lid, 10)) {
+              return item.id;
+            }
+          }).filter((el) => el !== undefined).pop(),
+          title: response.data.data.map((item) => {
+            if (item.list_id === parseInt(lid, 10)) {
+              return item.name;
+            }
+          }).filter((el) => el !== undefined).pop(),
+          completed: false,
+        },
+      })));
 };
 
 export const addList = (title) => (dispatch) => {
   axios({
     method: 'post',
-    url: 'http://localhost:3070/lists',
+    url: 'http://localhost:3076/lists',
     data: qs.stringify({
       name: title,
     }),
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
     },
-  });
-  axios({
-    method: 'get',
-    url: 'http://localhost:3070/lists',
   })
-    .then((response) => dispatch({
-      type: ADD_LIST,
-      title: response.data.data.map(({ name }) => name).pop(),
-      newList: [],
-    }));
+    .then(axios({
+      method: 'get',
+      url: 'http://localhost:3076/lists',
+    })
+      .then((response) => dispatch({
+        type: ADD_LIST,
+        title: response.data.data.map(({ name }) => name),
+        newList: [],
+        lid: response.data.data.map(({ id }) => id),
+      })));
 };
 export const getItems = () => (dispatch) => {
-  const one = 'http://localhost:3070/lists';
-  const two = 'http://localhost:3070/items';
+  const one = 'http://localhost:3076/lists';
+  const two = 'http://localhost:3076/items';
   const requestOne = axios.get(one);
   const requestTwo = axios.get(two);
 
@@ -87,7 +88,6 @@ export const getItems = () => (dispatch) => {
           type: GET_ITEMS,
           todos: responseOne.map((list) => {
             const ind = list.id;
-            console.log(ind);
             return responseTwo.map((item) => {
               if (ind === item.list_id) {
                 return {
@@ -103,7 +103,7 @@ export const getItems = () => (dispatch) => {
 };
 
 export const getListTitles = () => (dispatch) => {
-  axios.get('http://localhost:3070/lists')
+  axios.get('http://localhost:3076/lists')
     .then((response) => dispatch({
       type: GET_LIST_TITLES,
       titles: response.data.data.map(({ name }) => name),
