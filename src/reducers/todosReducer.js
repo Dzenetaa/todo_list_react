@@ -69,7 +69,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         todos: [...state.todos, action.newList],
-        titles: [...action.title],
+        titles: [...state.titles, action.title],
         listIds: [...action.lid],
       };
 

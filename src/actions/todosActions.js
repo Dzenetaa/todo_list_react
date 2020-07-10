@@ -12,7 +12,7 @@ export const markComplete = (id, lid) => ({
 });
 
 export const deleteItem = (id, lid) => (dispatch) => {
-  axios.delete('http://localhost:3076/items/id').then((res) => dispatch({
+  axios.delete(`http://localhost:3077/items/${id}`).then((res) => dispatch({
     type: DELETE_ITEM,
     id,
     lid: lid - 1,
@@ -22,7 +22,7 @@ export const deleteItem = (id, lid) => (dispatch) => {
 export const addTodo = (title, lid) => (dispatch) => {
   axios({
     method: 'post',
-    url: 'http://localhost:3076/items',
+    url: 'http://localhost:3077/items',
     data: qs.stringify({
       name: title,
       listId: lid,
@@ -31,7 +31,7 @@ export const addTodo = (title, lid) => (dispatch) => {
       'content-type': 'application/x-www-form-urlencoded',
     },
   })
-    .then(axios.get('http://localhost:3076/items')
+    .then(axios.get('http://localhost:3077/items')
       .then((response) => dispatch({
         type: ADD_TODO,
         lid: lid - 1,
@@ -54,7 +54,7 @@ export const addTodo = (title, lid) => (dispatch) => {
 export const addList = (title) => (dispatch) => {
   axios({
     method: 'post',
-    url: 'http://localhost:3076/lists',
+    url: 'http://localhost:3077/lists',
     data: qs.stringify({
       name: title,
     }),
@@ -64,18 +64,18 @@ export const addList = (title) => (dispatch) => {
   })
     .then(axios({
       method: 'get',
-      url: 'http://localhost:3076/lists',
+      url: 'http://localhost:3077/lists',
     })
       .then((response) => dispatch({
         type: ADD_LIST,
-        title: response.data.data.map(({ name }) => name),
+        title: response.data.data.map(({ name }) => name).pop(),
         newList: [],
         lid: response.data.data.map(({ id }) => id),
       })));
 };
 export const getItems = () => (dispatch) => {
-  const one = 'http://localhost:3076/lists';
-  const two = 'http://localhost:3076/items';
+  const one = 'http://localhost:3077/lists';
+  const two = 'http://localhost:3077/items';
   const requestOne = axios.get(one);
   const requestTwo = axios.get(two);
 
@@ -103,7 +103,7 @@ export const getItems = () => (dispatch) => {
 };
 
 export const getListTitles = () => (dispatch) => {
-  axios.get('http://localhost:3076/lists')
+  axios.get('http://localhost:3077/lists')
     .then((response) => dispatch({
       type: GET_LIST_TITLES,
       titles: response.data.data.map(({ name }) => name),
